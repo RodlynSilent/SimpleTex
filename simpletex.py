@@ -1,6 +1,7 @@
 import streamlit as st
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
+from PIL import Image
 
 def extract_keywords(text):
     # Create a TF-IDF vectorizer
@@ -26,36 +27,61 @@ def extract_keywords(text):
 
     return top_keywords
 
+# Load the logo image
+logo_path = "simpletex_logo.png"
+logo = Image.open(logo_path)
+
 # Set up the Streamlit interface
+st.image(logo, width=150)  # Resize the logo to a smaller width
 st.title('Simple Keyword Extractor')
 
-# User text input
-user_input = st.text_area("Enter text here:", height=300)
-if user_input:
-    # Extract keywords
-    keywords = extract_keywords(user_input)
+# Custom CSS to make content use full width
+st.markdown("""
+<style>
+    .block-container {
+        padding: 2rem;
+        max-width: 100%;
+    }
+    .stContainer {
+        width: 100%;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-    # Display the keywords
-    st.subheader('Extracted Keywords:')
-    for word, score in keywords:
-        st.write(f"{word} (Score: {score:.2f})")
+# Create two columns for layout of equal width
+col1, col2 = st.columns(2)
 
-    # Optional: Display a word cloud
-    try:
-        from wordcloud import WordCloud
-        import matplotlib.pyplot as plt
+# Left column for user input and instructions
+with col1:
+    user_input = st.text_area("Enter text here:", height=250)
+    with st.expander("How to Use This Tool"):
+        st.write("""
+        - **Step 1:** Paste or type your text into the text area above.
+        - **Step 2:** Press Enter or click outside the text box to process the text.
+        - **Step 3:** View the extracted keywords and their importance scores below the text box.
+        - **Step 4:** If installed, view the optional word cloud visualizing keyword importance.
+        """)
 
-        wordcloud = WordCloud(width=800, height=400, background_color ='white').generate_from_frequencies(dict(keywords))
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis("off")
-        st.pyplot(plt)
-    except ImportError:
-        st.error("WordCloud module is not installed. Run 'pip install wordcloud' to enable this feature.")
+# Right column for displaying results
+with col2:
+    if user_input:
+        # Extract keywords
+        keywords = extract_keywords(user_input)
 
-# Instructions and documentation
-st.sidebar.header("Instructions")
-st.sidebar.write("1. Paste or type your text into the text area above.")
-st.sidebar.write("2. Press Enter or click outside the text box to process the text.")
-st.sidebar.write("3. View the extracted keywords and their importance scores below the text box.")
-st.sidebar.write("4. If installed, view the optional word cloud visualizing keyword importance.")
+        # Display the keywords
+        st.subheader('Extracted Keywords:')
+        for word, score in keywords:
+            st.write(f"{word} (Score: {score:.2f})")
+
+        # Optional: Display a word cloud
+        try:
+            from wordcloud import WordCloud
+            import matplotlib.pyplot as plt
+
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(dict(keywords))
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis("off")
+            st.pyplot(plt)
+        except ImportError:
+            st.error("WordCloud module is not installed. Please run 'pip install wordcloud' to enable this feature. Thanks!")
