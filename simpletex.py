@@ -45,6 +45,20 @@ st.markdown("""
     .stContainer {
         width: 100%;
     }
+    .css-1d391kg {
+        background-color: #90e0ef;
+    }
+    .stApp {
+        background-color: #ffb703;
+    }
+    .stTextArea textarea {
+        background-color: #e0e0e0;  /* Background color */
+        color: #333333;  /* Text color */
+        font-size: 16px;  /* Font size */
+        border: 2px solid #cccccc;  /* Border style */
+        border-radius: 5px;  /* Rounded corners */
+        padding: 10px;  /* Padding inside the text area */
+    }        
 </style>
 """, unsafe_allow_html=True)
 
@@ -54,6 +68,9 @@ col1, col2 = st.columns(2)
 # Left column for user input and instructions
 with col1:
     user_input = st.text_area("Enter text here:", height=250)
+    if st.button("Sumbit"): 
+        st.write("You have submitted the text. Please wait for the results...")
+
     with st.expander("How to Use This Tool"):
         st.write("""
         - **Step 1:** Paste or type your text into the text area above.
@@ -70,8 +87,13 @@ with col2:
 
         # Display the keywords
         st.subheader('Extracted Keywords:')
-        for word, score in keywords:
-            st.write(f"{word} (Score: {score:.2f})")
+        col1, col2 = st.columns(2)
+        half = len(keywords) // 2
+        for i, (word, score) in enumerate(keywords):
+            if i < half:
+                col1.write(f"{word} (Score: {score:.2f})")
+            else:
+                col2.write(f"{word} (Score: {score:.2f})")
 
         # Optional: Display a word cloud
         try:
