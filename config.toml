@@ -3,7 +3,8 @@ email = ""
 
 [theme]
 base="dark"
-primaryColor="#284567"
+primaryColor="#f0c775"
 backgroundColor="#284567"
-textColor="#6d5523"
+secondaryBackgroundColor="#284567"
+
 
