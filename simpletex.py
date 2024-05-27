@@ -6,7 +6,6 @@ import base64
 st.set_page_config(page_title="SimpleTex: Your Simple Keyword Extractor")
 
 def extract_keywords(text):
-    
     # Create a TF-IDF vectorizer
     tfidf = TfidfVectorizer(stop_words='english')
 
@@ -103,6 +102,13 @@ st.markdown(f"""
             margin-top: -30px;
             text-align: center;
             color: #4a4a4a;
+        }}
+        .st-expander-header {{
+            color: #4a4a4a !important;
+            transition: color 0.3s;
+        }}
+        .st-expander-header:hover {{
+            color: #F0C775 !important;
         }}
         .expander-content {{
             display: none; /* Hide expander content by default */
