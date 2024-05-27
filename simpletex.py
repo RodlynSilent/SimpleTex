@@ -68,6 +68,10 @@ st.markdown(f"""
             border: 2px solid #cccccc;
             border-radius: 10px;
             padding: 10px;
+            transition: border-color 0.3s;
+        }}
+        .stTextArea textarea:focus {{
+            border-color: #F0C775;
         }}
         .stButton button {{
             background-color: #284867;
@@ -76,6 +80,9 @@ st.markdown(f"""
             border-radius: 5px;
             padding: 10px 20px;
             transition: background-color 0.3s;
+        }}
+        .stButton button:hover {{
+            background-color: #F0C775;
         }}
         .stButton button:active {{
             background-color: #f0c775;
@@ -97,9 +104,6 @@ st.markdown(f"""
             text-align: center;
             color: #4a4a4a;
         }}
-        .expander-header {{
-            color: #4a4a4a !important;
-        }}
         .expander-content {{
             display: none; /* Hide expander content by default */
         }}
@@ -117,7 +121,7 @@ col1, col2 = st.columns(2)
 with col1:
     user_input = st.text_area("Enter text here", height=250)
     submit_button = st.button("Submit")
-    if submit_button:
+    if submit_button and user_input.strip():
         st.write("You have submitted the text. Please wait for the results...")
 
     with st.expander("How to Use This Tool", expanded=False):
