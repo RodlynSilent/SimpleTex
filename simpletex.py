@@ -80,9 +80,6 @@ st.markdown(f"""
             padding: 10px 20px;
             transition: background-color 0.3s;
         }}
-        .stButton button:hover {{
-            background-color: #F0C775;
-        }}
         .stButton button:active {{
             background-color: #f0c775;
         }}
@@ -103,12 +100,8 @@ st.markdown(f"""
             text-align: center;
             color: #4a4a4a;
         }}
-        .st-expander-header {{
+        .expander-header {{
             color: #4a4a4a !important;
-            transition: color 0.3s;
-        }}
-        .st-expander-header:hover {{
-            color: #F0C775 !important;
         }}
         .expander-content {{
             display: none; /* Hide expander content by default */
