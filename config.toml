@@ -2,7 +2,7 @@
 email = ""
 
 [theme]
-base="284567"
+base="light"
 primaryColor="#f0c775"
 backgroundColor="#284567"
 secondaryBackgroundColor="#284567"
