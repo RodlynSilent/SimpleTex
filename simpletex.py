@@ -9,7 +9,7 @@ config = toml.load('config.toml')
 
 # Now you can access the values in the TOML file as a dictionary
 # For example, to get a value of a key 'key_name' in the TOML file
-value = config['key_name']
+value = config['theme']
 
 st.set_page_config(page_title="SimpleTex: Your Simple Keyword Extractor")
 
